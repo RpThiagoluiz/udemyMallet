@@ -3,9 +3,15 @@ import ContentHeader from '../../components/ContentHeader'
 import HistoryFincanceCard from '../../components/HistoryFincanceCard'
 import SelectInput from '../../components/SelectInput'
 
+//ide
+import { uuid } from 'uuidv4'
+
 //format
 import formatCurrency from '../../utils/formatCurrency'
 import formatDate from '../../utils/formatDate'
+
+//Li months import
+import listOfMonths from '../../utils/months'
 
 
 //`database`
@@ -73,7 +79,7 @@ const List: React.FC<IRouteParams> = ({ match }) => {
       const formattedData = filteredData.map(item => {
 
          return {
-            id: String(new Date().getTime()) + item.amount, //criar um id, randomicamente pelo valor do tamanho do array data.
+            id: uuid(),
             description: item.description,
             amountFormatted: formatCurrency(Number(item.amount)), //vem como string tratando ele pra ficar number -HOLYFCK SHIT
             frequency: item.frequency,
@@ -83,30 +89,44 @@ const List: React.FC<IRouteParams> = ({ match }) => {
       })
 
       setData(formattedData)
-   }, [listData,monthSelected,yearSelected,data.length])
+   }, [listData, monthSelected, yearSelected, data.length])
    //use effect sempre vai ser disparado quando a tela for carregado, caso nao seja passado nenhum vinculo ele vai ser utilizado apenas uma vez.
 
 
-   const months = [
-      { value: 1, label: 'Janeiro' },
-      { value: 2, label: 'Fevereiro' },
-      { value: 3, label: 'Marco' },
-      { value: 4, label: 'abril' },
-      { value: 5, label: 'maio' },
-      { value: 6, label: 'Junho' },
-      { value: 7, label: 'Julho' },
-      { value: 8, label: 'Agosto' },
-      { value: 9, label: 'Setembro' },
-      { value: 10, label: 'Outubro' },
-      { value: 11, label: 'Novembro' }
-   ]
+   const months = useMemo(() => {
+      return listOfMonths.map((month, index) => {
 
-   const years = [
-      { value: 2019, label: 2019 },
-      { value: 2018, label: 2018 },
-      { value: 2020, label: 2020 }
+         return {
+            value: index + 1,
+            label: month,
+         }
+      })
 
-   ]
+   },[])
+
+
+
+   const years = useMemo(() => {
+      let uniqueYears: number[] = []
+
+      listData.forEach(item => {
+         const date = new Date(item.date)
+         const year = date.getFullYear()
+
+         //filtro para verificar se ele ja esta aqui dentro
+         if (!uniqueYears.includes(year)) {
+            uniqueYears.push(year)
+         }
+      })
+
+      return uniqueYears.map(year => {
+         return {
+            value: year,
+            label: year,
+         }
+      })
+   }, [listData])
+
 
 
    return (
