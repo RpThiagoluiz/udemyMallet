@@ -6,7 +6,7 @@ import styled from 'styled-components'
 
 export const Container = styled.div ``
 
-export const Content = styled.div ``
+export const Content = styled.main``
 
 
 export const Filters = styled.div `
@@ -23,6 +23,7 @@ export const Filters = styled.div `
 
       margin: 0 10px;
 
+      opacity: .4;
       transition: opacity .3s;
 
       &:hover {
@@ -45,5 +46,9 @@ export const Filters = styled.div `
          content: '';
          margin: 0 auto;
          border-bottom:10px solid ${props=>props.theme.colors.success}
+      }
+
+      .tag-actvied{
+         opacity: 1;
       }
 `

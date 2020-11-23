@@ -42,28 +42,27 @@ interface IData {
 const List: React.FC<IRouteParams> = ({ match }) => {
 
 
-   const { type } = match.params
+   const movimentType = match.params.type
 
    const title = useMemo(() => {
-      return type === 'entry-balance' ? 'Entradas' : 'Saidas'
-   }, [type]) //estrutura do hook - quando vc coloca usa ele como uma dependencia.
+      return movimentType === 'entry-balance' ? 'Entradas' : 'Saidas'
+   }, [movimentType]) //estrutura do hook - quando vc coloca usa ele como uma dependencia.
 
    const lineColor = useMemo(() => {
-      return type === 'entry-balance' ? '#F7931B' : '#E44C4E'
-   }, [type])
+      return movimentType === 'entry-balance' ? '#F7931B' : '#E44C4E'
+   }, [movimentType])
 
    const listData = useMemo(() => {
-      return type === 'entry-balance' ? gains : expenses
-   }, [type])
+      return movimentType === 'entry-balance' ? gains : expenses
+   }, [movimentType])
    //dependendo da rota que vai ser acessada vai ser oq ele vai carregar.
 
 
    const [data, setData] = useState<IData[]>([]) //primeiro ele guarda o segundo ele atualiza - vc ta develvendo muito objetos nao somente 1 por isso array.
-
-
-   //filtros
    const [monthSelected, setMonthSelected] = useState<string>(String(new Date().getMonth() + 1))
    const [yearSelected, setYearSelected] = useState<string>(String(new Date().getFullYear()))
+   const [frequencyFilterSelected, setFrequencyFilterSelected] = useState(['recorrente', 'eventual']) //estado vai comecar com um array com esses dois valores.
+
 
 
    useEffect(() => {
@@ -73,8 +72,7 @@ const List: React.FC<IRouteParams> = ({ match }) => {
          const month = String(date.getMonth() + 1)
          const year = String(date.getFullYear())
 
-         return month === monthSelected && year === yearSelected
-
+         return month === monthSelected && year === yearSelected && frequencyFilterSelected.includes(item.frequency)
       })
       const formattedData = filteredData.map(item => {
 
@@ -89,7 +87,7 @@ const List: React.FC<IRouteParams> = ({ match }) => {
       })
 
       setData(formattedData)
-   }, [listData, monthSelected, yearSelected, data.length])
+   }, [listData, monthSelected, yearSelected, data.length, frequencyFilterSelected])
    //use effect sempre vai ser disparado quando a tela for carregado, caso nao seja passado nenhum vinculo ele vai ser utilizado apenas uma vez.
 
 
@@ -102,9 +100,18 @@ const List: React.FC<IRouteParams> = ({ match }) => {
          }
       })
 
-   },[])
+   }, [])
 
+   const handleFrequencyClick = (frequency: string) => {
+      const alreadySelected = frequencyFilterSelected.findIndex(item => item === frequency)
 
+      if (alreadySelected >= 0) {
+         const filtered = frequencyFilterSelected.filter(item => item !== frequency) // se o filtro ja tiver selecionado eu quero desmarcar ele.
+         setFrequencyFilterSelected(filtered)
+      } else {
+         setFrequencyFilterSelected((prev) => [...prev, frequency])
+      }
+   }
 
    const years = useMemo(() => {
       let uniqueYears: number[] = []
@@ -127,8 +134,6 @@ const List: React.FC<IRouteParams> = ({ match }) => {
       })
    }, [listData])
 
-
-
    return (
       <Container>
          <ContentHeader title={title} lineColor={lineColor}>
@@ -139,19 +144,25 @@ const List: React.FC<IRouteParams> = ({ match }) => {
          <Filters>
             <button
                type="button"
-               className="tag-filter tag-filter-recurrents"
+               className={`tag-filter tag-filter-recurrents
+                  ${frequencyFilterSelected.includes('recorrente') && 'tag-actvied'}
+               `}
+               onClick={() => handleFrequencyClick('recorrente')}
             >
                Recorentes
          </button>
 
             <button
                type="button"
-               className="tag-filter tag-filter-eventual"
+
+               className={`tag-filter tag-filter-eventual
+                  ${frequencyFilterSelected.includes('eventual') && 'tag-actvied'}
+               `}
+               onClick={() => handleFrequencyClick('eventual')}
             >
                Eventuais
          </button>
          </Filters>
-
 
          <Content>
             {
@@ -167,12 +178,7 @@ const List: React.FC<IRouteParams> = ({ match }) => {
                   />
                ))
             }
-
-
-
          </Content>
-
-
       </Container>
    )
 }
