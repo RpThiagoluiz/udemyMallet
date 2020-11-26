@@ -2,6 +2,7 @@ export default [
   {"description":"Energia elétrica",      "amount":"150.55","type":"saída","frequency":"recorrente","date":"2020-11-10"},
   {"description":"Água",                  "amount":"75.55", "type":"saída","frequency":"recorrente","date":"2020-10-15"},
   {"description": "Telefone",             "amount":"99.99", "type":"saída","frequency":"recorrente","date":"2020-01-23"},
+  {"description": "Curso de Bombeiro",    "amount":"1199.99","type":"saída","frequency":"eventual", "date":"2020-01-21"},
   {"description":"Plano de Saúde",        "amount":"300.00","type":"saída","frequency":"recorrente","date":"2020-01-23"},
   {"description":"Compras do mês",        "amount":"625.78","type":"saída","frequency":"recorrente","date":"2020-01-23"},
   {"description":"Lanche",                "amount":"45.70", "type":"saída","frequency":"eventual",  "date":"2020-01-23"},
@@ -44,8 +45,15 @@ export default [
   {"description":"Energia elétrica",      "amount":"250.00","type":"saída","frequency":"recorrente","date":"2020-07-10"},
   {"description":"Água",                  "amount":"90.00", "type":"saída","frequency":"recorrente","date":"2020-07-15"},
   {"description":"Telefone",              "amount":"99.99", "type":"saída","frequency":"recorrente","date":"2020-07-23"},
-  {"description":"Plano de Saúde",        "amount":"300.00","type":"saída","frequency":"recorrente","date":"2018-07-23"},
-  {"description":"Compras do mês",        "amount":"700.00","type":"saída","frequency":"recorrente","date":"2019-07-25"},
-  {"description":"Cafeteira",             "amount":"250.00","type":"saída","frequency":"eventual",  "date":"2020-07-26"},
-  {"description":"Pizza",                 "amount":"60.00", "type":"saída","frequency":"eventual",  "date":"2020-07-19"}
+  {"description":"Plano de Saúde",        "amount":"300.00","type":"saída","frequency":"recorrente","date":"2018-08-23"},
+  {"description":"Compras do mês",        "amount":"700.00","type":"saída","frequency":"recorrente","date":"2019-09-25"},
+  {"description":"Cafeteira",             "amount":"250.00","type":"saída","frequency":"eventual",  "date":"2020-10-26"},
+  {"description": "Putaria",              "amount":"489.45", "type":"saída","frequency":"eventual", "date":"2020-10-23"},
+  {"description":"Pizza",                 "amount":"160.00", "type":"saída","frequency":"eventual",  "date":"2020-11-19"},
+  {"description":"cafe",                  "amount":"260.00", "type":"saída","frequency":"eventual",  "date":"2020-11-21"},
+  {"description":"energia",               "amount":"460.00", "type":"saída","frequency":"eventual",  "date":"2020-11-25"},
+  {"description":"agua",                  "amount":"160.00", "type":"saída","frequency":"eventual",  "date":"2020-11-21"},
+  {"description":"internet",              "amount":"260.00", "type":"saída","frequency":"eventual",  "date":"2020-11-19"},
+  {"description":"piranhas",              "amount":"1685.00", "type":"saída","frequency":"eventual",  "date":"2020-11-01"}
+
 ]
