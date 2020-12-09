@@ -1,6 +1,9 @@
-import React,{ useMemo } from 'react'
+import React,{ useMemo,useState } from 'react'
 //useMemo, decora um valor quando o valor muda
 import Toggle from '../Toggle'
+
+//hook
+import {useTheme} from '../../hooks/theme'
 
 import emojis from '../../utils/emojis'
 
@@ -14,6 +17,14 @@ import {
 
 
 const MainHeader: React.FC = () => {
+   const { toggleTheme, theme} = useTheme()
+
+   const [darkTheme, setDarkTheme] = useState(() => theme.title === 'dark' ? true : false);
+
+   const handleChangeTheme = () => {
+       setDarkTheme(!darkTheme);
+       toggleTheme();
+   }
 
    //selecao random de emojis
    const emoji = useMemo(() => {
@@ -22,9 +33,16 @@ const MainHeader: React.FC = () => {
    },[])
 
 
+
    return (
       <Container>
-         <Toggle />
+         <Toggle
+            labelLeft="light"
+            labelRight="dark"
+            checked={darkTheme}
+            onChange={handleChangeTheme}
+         
+         />
          <Profile>
             <Welcome>
                Hi, {emoji}

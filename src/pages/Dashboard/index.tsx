@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo,useCallback } from 'react'
 //components
 import ContentHeader from '../../components/ContentHeader'
 import SelectInput from '../../components/SelectInput'
@@ -120,6 +120,14 @@ const Dashboard: React.FC = () => {
             footerText: "Verifique seus gastos, tente economizar.",
             icon: sadImg
          }
+      }  else if (totalGains === 0 && totalExpenses === 0){
+         return{
+            title: "EITCHA",
+            description: "Nao registro de movimentacao, nem entrada nem saidas",
+            footerText: "E ai, bora?!",
+            icon: shockedImg
+         }
+
       } else if (totalBalance === 0) {
          return {
             title: "UFA !!!",
@@ -137,25 +145,27 @@ const Dashboard: React.FC = () => {
       }
 
 
-   }, [totalBalance])
+   }, [totalBalance,totalGains,totalExpenses])
 
    const relationExpensesVsGains = useMemo(() => {
       const total = totalGains + totalExpenses
 
-      const gainsPercents = (totalGains / total) * 100
-      const expensesPercents = (totalExpenses / total) * 100
+      const gainsPercents = Number(((totalGains / total) * 100).toFixed(1))
+      const expensesPercents = Number(((totalExpenses / total) * 100).toFixed(1))
+
+      
 
       const data = [
          {
             name: "Entradas",
             value: totalExpenses,
-            percent: Number(gainsPercents.toFixed(1)),
+            percent: gainsPercents ? gainsPercents : 0,
             color: '#F7931B'
          },
          {
             name: "Saidas",
             value: totalExpenses,
-            percent: Number(expensesPercents.toFixed(1)),
+            percent: expensesPercents ? expensesPercents : 0,
             color: '#E44C4E'
          }
       ]
@@ -298,23 +308,25 @@ const Dashboard: React.FC = () => {
       ];
    }, [monthSelected, yearSelected]);
 
-   const handleMonthSelected = (month: string) => {
+   //useCallback garante que uma funcao seja chamada apenas uma vez - fica mais performatico
+
+   const handleMonthSelected = useCallback((month: string) => {
       try {
          const parseMonth = Number(month)
          setMonthSelected(parseMonth)
       } catch {
          throw new Error("Invalid month value, Is accpet 0 - 24 !")
       }
-   }
+   },[])
 
-   const handleYearSelected = (year: string) => {
+   const handleYearSelected = useCallback((year: string) => {
       try {
          const parseYear = Number(year)
          setYearSelected(parseYear)
       } catch {
          throw new Error("Invalid year value, Is accpet integer number!!")
       }
-   }
+   },[])
 
    return (
       <Container>
