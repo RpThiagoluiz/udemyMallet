@@ -1,9 +1,23 @@
-import React from 'react'
+import React from "react";
 
-const SingIn : React.FC = () => {
-   return(
-      <h1>SingIn</h1>
-   )
-}
+import logoImg from "../../assets/logo.svg";
 
-export default SingIn
+import { Container, Logo, Form, FormTitle } from "./styles";
+
+const SingIn: React.FC = () => {
+  return (
+    <Container>
+      <Logo>
+        <img src={logoImg} alt="Minha Carteira" />
+        <h3>Minha Carteira</h3>
+      </Logo>
+      <Form>
+        <FormTitle>
+          <h1>Entrar</h1>
+        </FormTitle>
+      </Form>
+    </Container>
+  );
+};
+
+export default SingIn;
