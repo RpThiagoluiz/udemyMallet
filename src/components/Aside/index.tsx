@@ -1,49 +1,57 @@
-import React from 'react'
-import logoImg from '../../assets/logo.svg'
-import { Container, Header, LogImg, MenuContainer,MenuItemLink, Title} from './styles' //quando nao tem export default
+import React from "react";
+import logoImg from "../../assets/logo.svg";
 
-import {  
-   MdDashboard,
-   MdArrowDownward,
-   MdArrowUpward,
-   MdExitToApp
+import { useAuth } from "../../hooks/auth";
 
-} from 'react-icons/md'
+import {
+  Container,
+  Header,
+  LogImg,
+  MenuContainer,
+  MenuItemLink,
+  MenuItemButton,
+  Title,
+} from "./styles"; //quando nao tem export default
 
+import {
+  MdDashboard,
+  MdArrowDownward,
+  MdArrowUpward,
+  MdExitToApp,
+} from "react-icons/md";
 
 const Aside: React.FC = () => {
-   return (
-      <Container>
-         <Header>
-            <LogImg src={logoImg} alt="Logo Minha Carteira"/>
-            <Title>Minha Carteira</Title>
-         </Header>
-         
-         <MenuContainer>
-            <MenuItemLink href="/dashboard">
-               <MdDashboard />
-               Dashboard
-            </MenuItemLink>
+  const { singOut } = useAuth();
+  return (
+    <Container>
+      <Header>
+        <LogImg src={logoImg} alt="Logo Minha Carteira" />
+        <Title>Minha Carteira</Title>
+      </Header>
 
-            <MenuItemLink href="/list/entry-balance">
-               <MdArrowUpward />
-               Entradas
-            </MenuItemLink>
+      <MenuContainer>
+        <MenuItemLink href="/">
+          <MdDashboard />
+          Dashboard
+        </MenuItemLink>
 
-            <MenuItemLink href="/list/exit-balance">
-               <MdArrowDownward />
-               Saidas
-            </MenuItemLink>
+        <MenuItemLink href="/list/entry-balance">
+          <MdArrowUpward />
+          Entradas
+        </MenuItemLink>
 
-            <MenuItemLink href="#">
-               <MdExitToApp />
-               Sair
-            </MenuItemLink>
+        <MenuItemLink href="/list/exit-balance">
+          <MdArrowDownward />
+          Saidas
+        </MenuItemLink>
 
-         </MenuContainer>
+        <MenuItemButton onClick={singOut}>
+          <MdExitToApp />
+          Sair
+        </MenuItemButton>
+      </MenuContainer>
+    </Container>
+  );
+};
 
-      </Container>
-   )
-}
-
-export default Aside
+export default Aside;

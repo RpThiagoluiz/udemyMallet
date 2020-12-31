@@ -1,72 +1,76 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 interface ILegendProps {
-   color:string
+  color: string;
 }
 
 export const Container = styled.div`
-   width: 100%;
-   
-   display: flex;
-   flex-direction:column;
+  width: 100%;
 
-   background-color: ${props => props.theme.colors.tertiary};
-   color: ${props => props.theme.colors.white};
+  display: flex;
+  flex-direction: column;
 
-   margin: 10px 0;
-   padding: 30px 20px;
+  background-color: ${(props) => props.theme.colors.tertiary};
+  color: ${(props) => props.theme.colors.white};
 
-   border-radius: 7px;
+  margin: 10px 0;
+  padding: 30px 20px;
 
-`
+  border-radius: 7px;
+`;
 
 export const ChartContainer = styled.div`
-   flex:1;
-   height: 260px;
-`
+  flex: 1;
+  height: 260px;
+`;
 export const Header = styled.header`
-   width: 100%;
-   display:flex;
-   justify-content: space-between;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 
+  > h2 {
+    margin-bottom: 20px;
+    padding-left: 16px;
+  }
 
-   > h2 {
-      margin-bottom: 20px;
-      padding-left: 16px;
-
-   }
-`
-
+  @media (max-width: 1200px) {
+    flex-direction: column;
+  }
+`;
 
 export const LegendContainer = styled.ul`
-   list-style:none;
-   display:flex;
-
-
-`
+  list-style: none;
+  display: flex;
+`;
 
 export const Legend = styled.li<ILegendProps>`
-   display: flex;
-   align-items: center;
+  display: flex;
+  align-items: center;
 
-   margin-bottom: 7px;
-   margin-left: 7px;
-   padding-right:17px;
+  margin-bottom: 7px;
+  margin-left: 15px;
+  padding-right: 17px;
 
+  > div {
+    background-color: ${(props) => props.color};
+
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+
+    font-size: 14px;
+    line-height: 40px;
+    text-align: center;
+  }
+
+  > span {
+    margin-left: 5px;
+  }
+
+  @media (max-width: 1280px) {
     > div {
-       background-color: ${props=> props.color};
-
-       width: 40px;
-       height: 40px;
-       border-radius: 5px;
-
-       font-size: 14px;
-       line-height:40px;
-       text-align:center;
+      width: 30px;
+      height: 30px;
     }
-
-    > span {
-       margin-left: 5px;
-    }
-
-`
+  }
+`;
